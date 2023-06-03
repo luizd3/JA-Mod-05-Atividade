@@ -9,9 +9,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +33,7 @@ public class ProductControllerTests {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .get("/products").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$[0].id", matchesPattern(UUDI_REGEX)))
                 .andExpect(jsonPath("$[0].nome").value("Air Fryer"))
                 .andExpect(jsonPath("$[0].valor").value(450.0))
