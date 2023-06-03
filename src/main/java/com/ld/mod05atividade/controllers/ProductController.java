@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
@@ -17,6 +18,11 @@ public class ProductController {
     @GetMapping
     public List<Product> getProductList() {
         return productService.findAll();
+    }
+
+    @PostMapping("/{id}/{quantidade}")
+    public void addProduct(@PathVariable("id") UUID id, @PathVariable("quantidade") Integer quantidade) {
+        productService.addProductQuantity(id, quantidade);
     }
 
 }
