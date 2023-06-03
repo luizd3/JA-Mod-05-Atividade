@@ -30,4 +30,13 @@ public class ProductRepository {
         product.setId(UUID.randomUUID());
         productList.add(product);
     }
+
+    public void addProductQuantity(UUID id, Integer quantidade)  {
+        Product productFound = findAll().stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst()
+                .get();
+
+        productFound.setQuantidade(productFound.getQuantidade() + quantidade);
+    }
 }
