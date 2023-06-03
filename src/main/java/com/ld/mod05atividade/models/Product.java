@@ -15,8 +15,8 @@ public class Product {
 
     public Product() {}
 
-    public Product(String nome, double valor, double descontoMaximo, int quantidade) {
-        this.id = UUID.randomUUID();
+    public Product(UUID id, String nome, double valor, double descontoMaximo, int quantidade) {
+        this.id = id;
         this.nome = nome;
         this.valor = valor;
         this.descontoMaximo = descontoMaximo;
