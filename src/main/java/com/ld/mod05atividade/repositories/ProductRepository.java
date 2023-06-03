@@ -14,13 +14,19 @@ public class ProductRepository {
 
     public ProductRepository() {
         this.productList = new ArrayList<>();
+        // Produtos pré-cadastrados
+        addProductToList(new Product("Air Fryer", 450.00, 0.15, 18));
+        addProductToList(new Product("Liquidificador", 127.90, 0.12, 10));
+        addProductToList(new Product("Sofá", 2489.90, 0.18, 8));
+        addProductToList(new Product("Guarda-roupas", 1357.99, 0.07, 5));
+        addProductToList(new Product("Jogo de Pratos", 269.80, 0.05, 15));
     }
 
     public List<Product> findAll() {
         return productList;
     }
 
-    public void addProductToList(Product product) {
+    private void addProductToList(Product product) {
         product.setId(UUID.randomUUID());
         productList.add(product);
     }

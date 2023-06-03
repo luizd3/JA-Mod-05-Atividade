@@ -16,11 +16,7 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getProductList() {
-        return productService.getProductsList();
+        return productService.findAll();
     }
 
-    @PostMapping
-    public void addProduct(@RequestBody Product product) {
-        productService.addProductToList(product);
-    }
 }

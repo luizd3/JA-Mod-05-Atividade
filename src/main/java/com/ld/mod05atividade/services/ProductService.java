@@ -13,11 +13,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public void addProductToList(Product product) {
-        productRepository.addProductToList(product);
-    }
-
-    public List<Product> getProductsList() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 }

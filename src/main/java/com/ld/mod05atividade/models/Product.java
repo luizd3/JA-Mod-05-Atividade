@@ -11,14 +11,16 @@ public class Product {
     private String nome;
     private double valor;
     private double descontoMaximo;
+    private int quantidade;
 
     public Product() {}
 
-    public Product(String nome, double valor, double descontoMaximo) {
+    public Product(String nome, double valor, double descontoMaximo, int quantidade) {
         this.id = UUID.randomUUID();
         this.nome = nome;
         this.valor = valor;
         this.descontoMaximo = descontoMaximo;
+        this.quantidade = quantidade;
     }
 
     public UUID getId() {
@@ -51,5 +53,13 @@ public class Product {
 
     public void setDescontoMaximo(double descontoMaximo) {
         this.descontoMaximo = descontoMaximo;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
