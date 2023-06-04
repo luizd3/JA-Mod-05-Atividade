@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -44,6 +45,21 @@ public class ProductControllerTests {
                 .andExpect(jsonPath("$[3].descontoMaximo").value(0.07))
                 .andExpect(jsonPath("$[4].quantidade").value(15))
                 .andReturn();
+    }
 
+    @Test
+    public void shouldAddAProduct() throws Exception {
+        UUID aProductID = UUID.fromString("0b5f5444-e9a9-4868-946f-aecccb16ebdf");
+        int aProductQuantity = 2;
+
+        // Requisição para testar se a quantidade de produto foi adicionada ao estoque
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/products/" + aProductID + "/" + aProductQuantity))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/products").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].quantidade").value(20));
     }
 }
