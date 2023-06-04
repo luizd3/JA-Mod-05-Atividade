@@ -62,4 +62,21 @@ public class ProductControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].quantidade").value(20));
     }
+
+    public void shouldSellAListOfProducts() throws Exception {
+
+        final String A_LIST_OF_ITENS = """
+                [
+                    {
+                        "id": "0b5f5444-e9a9-4868-946f-aecccb16ebdf",
+                        "quantidade": 4,
+                        "desconto": 0.10
+                    }
+                ]
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("products/sell"))
+                .andExpect(status().isOk());
+    }
 }
