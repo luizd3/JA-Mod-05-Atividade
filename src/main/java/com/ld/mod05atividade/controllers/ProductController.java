@@ -20,7 +20,7 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @PostMapping("/{id}/{quantidade}")
+    @PatchMapping("/{id}/{quantidade}")
     public void addProduct(@PathVariable("id") UUID id, @PathVariable("quantidade") Integer quantidade) {
         productService.addProductQuantity(id, quantidade);
     }
