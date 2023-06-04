@@ -54,7 +54,7 @@ public class ProductControllerTests {
 
         // Requisição para testar se a quantidade de produto foi adicionada ao estoque
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/products/" + aProductID + "/" + aProductQuantity))
+                .patch("/products/" + aProductID + "/" + aProductQuantity))
                 .andExpect(status().isOk());
 
         mockMvc.perform(MockMvcRequestBuilders
