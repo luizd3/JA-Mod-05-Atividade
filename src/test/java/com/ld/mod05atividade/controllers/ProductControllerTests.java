@@ -63,6 +63,7 @@ public class ProductControllerTests {
                 .andExpect(jsonPath("$[0].quantidade").value(20));
     }
 
+    @Test
     public void shouldSellAListOfProducts() throws Exception {
 
         final String A_LIST_OF_ITENS = """
@@ -71,12 +72,19 @@ public class ProductControllerTests {
                         "id": "0b5f5444-e9a9-4868-946f-aecccb16ebdf",
                         "quantidade": 4,
                         "desconto": 0.10
+                    },
+                    {
+                        "id": "5f676f7a-8e2c-4c04-935b-3c387a16ab22",
+                        "quantidade": 2,
+                        "desconto": 0.10
                     }
                 ]
                 """;
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("products/sell"))
+                .post("/products/sell")
+                        .content(A_LIST_OF_ITENS)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
