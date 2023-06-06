@@ -1,5 +1,6 @@
 package com.ld.mod05atividade.controllers;
 
+import com.ld.mod05atividade.models.OrderRequest;
 import com.ld.mod05atividade.models.Product;
 import com.ld.mod05atividade.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ProductController {
     @PatchMapping("/{id}/{quantidade}")
     public void addProduct(@PathVariable("id") UUID id, @PathVariable("quantidade") Integer quantidade) {
         productService.addProductQuantity(id, quantidade);
+    }
+
+    @PostMapping("/sell")
+    public double sellProducts(@RequestBody final OrderRequest orderRequest) {
+        return productService.sellProducts(orderRequest);
     }
 
 }
