@@ -14,6 +14,9 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    OrderService orderService;
+
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -23,15 +26,15 @@ public class ProductService {
     }
 
     public double sellProducts(OrderRequest orderRequest) {
-        List<OrderItem> orderList = orderRequest.getOrderRequestList().stream()
-                .map(OrderItem::new).toList();
-
-        Order order = new Order(orderList);
-
+        List<OrderItem> orderItemList = orderRequest.getOrderRequestList().stream()
+                .map(orderRequestItem -> {
+                    return orderService.orderItemBuilder(orderRequestItem);
+                }
+                ).toList();
+        Order order = new Order(orderItemList);
         double totalOrderPrice = order.getItems().stream()
                 .mapToDouble(OrderItem::totalPrice)
                 .sum();
-
         return totalOrderPrice;
     }
 }

@@ -1,21 +1,16 @@
 package com.ld.mod05atividade.models;
 
-import com.ld.mod05atividade.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderItem {
 
     private OrderRequestItem orderRequestItem;
     private Product product;
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    public OrderItem(OrderRequestItem orderRequestItem) {
+    public OrderItem(OrderRequestItem orderRequestItem, Product product) {
         this.orderRequestItem = orderRequestItem;
-        this.product = productRepository.findAll().stream()
-                .filter(product1 -> product1.getId().equals(orderRequestItem.getId()))
-                .findFirst().get();
+        this.product = product;
     }
 
     public OrderItem() {}
@@ -24,11 +19,11 @@ public class OrderItem {
         return product.getPriceWithDiscount(orderRequestItem.getDesconto()) * orderRequestItem.getQuantidade();
     }
 
-    public OrderRequestItem getOrderRequest() {
+    public OrderRequestItem getOrderRequestItem() {
         return orderRequestItem;
     }
 
-    public void setOrderRequest(OrderRequestItem orderRequestItem) {
+    public void setOrderRequestItem(OrderRequestItem orderRequestItem) {
         this.orderRequestItem = orderRequestItem;
     }
 
@@ -39,4 +34,5 @@ public class OrderItem {
     public void setProduct(Product product) {
         this.product = product;
     }
+
 }

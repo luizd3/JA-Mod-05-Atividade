@@ -1,6 +1,5 @@
 package com.ld.mod05atividade.controllers;
 
-import com.ld.mod05atividade.models.OrderItem;
 import com.ld.mod05atividade.models.OrderRequest;
 import com.ld.mod05atividade.models.Product;
 import com.ld.mod05atividade.services.ProductService;

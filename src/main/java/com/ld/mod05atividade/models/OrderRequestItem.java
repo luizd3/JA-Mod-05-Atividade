@@ -1,7 +1,10 @@
 package com.ld.mod05atividade.models;
 
+import org.springframework.stereotype.Component;
+
 import java.util.UUID;
 
+@Component
 public class OrderRequestItem {
 
     private UUID id;
@@ -13,6 +16,8 @@ public class OrderRequestItem {
         this.quantidade = quantidade;
         this.desconto = desconto;
     }
+
+    public OrderRequestItem() {}
 
     public UUID getId() {
         return id;

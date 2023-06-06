@@ -15,8 +15,8 @@ public class ProductRepository {
     public ProductRepository() {
         this.productList = new ArrayList<>();
         // Produtos pré-cadastrados
-        addProductToList(new Product(UUID.fromString("0b5f5444-e9a9-4868-946f-aecccb16ebdf"), "Air Fryer", 450.00, 0.15, 18));
-        addProductToList(new Product(UUID.fromString("5f676f7a-8e2c-4c04-935b-3c387a16ab22"), "Liquidificador", 127.90, 0.12, 10));
+        addProductToList(new Product(UUID.fromString("0b5f5444-e9a9-4868-946f-aecccb16ebdf"), "Air Fryer", 300.00, 0.15, 18));
+        addProductToList(new Product(UUID.fromString("5f676f7a-8e2c-4c04-935b-3c387a16ab22"), "Liquidificador", 100.00, 0.12, 10));
         addProductToList(new Product(UUID.fromString("680b6aab-b1da-4d99-bacf-a6f93d41a566"), "Sofá", 2489.90, 0.18, 8));
         addProductToList(new Product(UUID.fromString("ff8b8efa-c650-4bef-bef6-ce8199229ce6"), "Guarda-roupas", 1357.99, 0.07, 5));
         addProductToList(new Product(UUID.fromString("7f091242-50a7-4a6d-a7dc-f55aca9077ae"), "Jogo de Pratos", 269.80, 0.05, 15));
@@ -24,6 +24,12 @@ public class ProductRepository {
 
     public List<Product> findAll() {
         return productList;
+    }
+
+    public Product findAProductGivenItsId(UUID id) {
+        return productList.stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst().get();
     }
 
     private void addProductToList(Product product) {
