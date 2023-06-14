@@ -86,13 +86,13 @@ public class ProductControllerTests {
                     }
                 """;
 
-        String expectedResponseBody = "720.0";
+        String expectedResponseBody = "Valor total final da venda: R$ 720.0";
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post("/products/sell")
                         .content(A_LIST_OF_ITENS)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn();
 
         String responseBody = result.getResponse().getContentAsString();
