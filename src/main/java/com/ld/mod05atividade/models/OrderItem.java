@@ -16,7 +16,18 @@ public class OrderItem {
     public OrderItem() {}
 
     public double totalPrice() {
-        return product.getPriceWithDiscount(orderRequestItem.getDesconto()) * orderRequestItem.getQuantidade();
+        int orderQuantity = getOrderQuantityAccordingToStock(orderRequestItem.getQuantidade());
+        double priceWithDiscount = product.getPriceWithDiscount(orderRequestItem.getDesconto());
+        return orderQuantity * priceWithDiscount;
+    }
+
+    // Regra de negócio: Ao tentar realizar uma venda de uma quantidade maior do que a disponível em estoque,
+    // deve ser vendido apenas a quantidade de produtos disponíveis.
+    private int getOrderQuantityAccordingToStock(int orderQuantity) {
+        if (orderQuantity < product.getQuantidade()) {
+            return orderQuantity;
+        }
+        return product.getQuantidade();
     }
 
     public OrderRequestItem getOrderRequestItem() {
