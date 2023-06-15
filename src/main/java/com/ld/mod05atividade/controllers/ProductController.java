@@ -4,6 +4,8 @@ import com.ld.mod05atividade.models.OrderRequest;
 import com.ld.mod05atividade.models.Product;
 import com.ld.mod05atividade.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +24,18 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}/{quantidade}")
-    public void addProduct(@PathVariable("id") UUID id, @PathVariable("quantidade") Integer quantidade) {
+    public ResponseEntity<String> addProduct(@PathVariable("id") UUID id,
+                                             @PathVariable("quantidade") Integer quantidade) {
         productService.addProductQuantity(id, quantidade);
+        final String message = "Estoque de produto adicionado.";
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping("/sell")
-    public double sellProducts(@RequestBody final OrderRequest orderRequest) {
-        return productService.sellProducts(orderRequest);
+    public ResponseEntity<String> sellProducts(@RequestBody final OrderRequest orderRequest) {
+        double valorTotalFinalDaVenda = productService.sellProducts(orderRequest);
+        final String message = "Valor total final da venda: R$ " + valorTotalFinalDaVenda;
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
 }

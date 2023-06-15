@@ -27,9 +27,7 @@ public class ProductService {
 
     public double sellProducts(OrderRequest orderRequest) {
         List<OrderItem> orderItemList = orderRequest.getOrderRequestList().stream()
-                .map(orderRequestItem -> {
-                    return orderService.orderItemBuilder(orderRequestItem);
-                }
+                .map(orderRequestItem -> orderService.orderItemBuilder(orderRequestItem)
                 ).toList();
         Order order = new Order(orderItemList);
         double totalOrderPrice = order.getItems().stream()
