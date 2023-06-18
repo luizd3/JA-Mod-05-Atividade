@@ -1,23 +1,23 @@
-package com.ld.mod05atividade.models;
+package com.ld.mod05atividade.adapters.requests;
 
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class OrderRequestItem {
+public class OrderItemRequest {
 
     private UUID id;
     private int quantidade;
     private double desconto;
 
-    public OrderRequestItem(UUID id, int quantidade, double desconto) {
+    public OrderItemRequest(UUID id, int quantidade, double desconto) {
         this.id = id;
         this.quantidade = quantidade;
         this.desconto = desconto;
     }
 
-    public OrderRequestItem() {}
+    public OrderItemRequest() {}
 
     public UUID getId() {
         return id;

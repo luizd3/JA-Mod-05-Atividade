@@ -1,5 +1,7 @@
 package com.ld.mod05atividade.services;
 
+import com.ld.mod05atividade.adapters.responses.OrderItemResponse;
+import com.ld.mod05atividade.adapters.OrderItemAdapter;
 import com.ld.mod05atividade.models.*;
 import com.ld.mod05atividade.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     @Autowired
-    OrderService orderService;
+    OrderItemAdapter orderItemAdapter;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -26,12 +28,13 @@ public class ProductService {
     }
 
     public double sellProducts(OrderRequest orderRequest) {
-        List<OrderItem> orderItemList = orderRequest.getOrderRequestList().stream()
-                .map(orderRequestItem -> orderService.orderItemBuilder(orderRequestItem)
+        List<OrderItemResponse> orderItemResponseList = orderRequest.getOrderRequestList().stream()
+                .map(orderItemRequest -> orderItemAdapter.toOrderItemResponse(orderItemRequest)
                 ).toList();
-        Order order = new Order(orderItemList);
+        Order order = new Order(orderItemResponseList);
+
         double totalOrderPrice = order.getItems().stream()
-                .mapToDouble(OrderItem::totalPrice)
+                .mapToDouble(OrderItemResponse::totalPrice)
                 .sum();
         return totalOrderPrice;
     }
