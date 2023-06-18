@@ -23,13 +23,6 @@ public class Product {
         this.quantidade = quantidade;
     }
 
-    public double getPriceWithDiscount(double desconto) {
-        if (desconto > descontoMaximo) {
-            return valor * (1 - descontoMaximo);
-        }
-        return valor * (1 - desconto);
-    }
-
     public UUID getId() {
         return id;
     }

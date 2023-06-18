@@ -1,13 +1,28 @@
 package com.ld.mod05atividade.services;
 
-import com.ld.mod05atividade.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ld.mod05atividade.adapters.responses.OrderItemResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
-    @Autowired
-    ProductRepository productRepository;
+    public double totalPrice(OrderItemResponse orderItemResponse) {
+        int quantityRequested = orderItemResponse.getOrderRequestItem().quantidade();
+        int quantityInStock = orderItemResponse.getProduct().getQuantidade();
+        int orderQuantity = getOrderQuantityAccordingToStock(quantityRequested, quantityInStock);
+        double priceWithDiscount = ProductService.getPriceWithDiscount(
+                orderItemResponse.getProduct(),
+                orderItemResponse.getOrderRequestItem().desconto()
+        );
+        return orderQuantity * priceWithDiscount;
+    }
 
+    // Regra de negócio: Ao tentar realizar uma venda de uma quantidade maior do que a disponível em estoque,
+    // deve ser vendido apenas a quantidade de produtos disponíveis.
+    private int getOrderQuantityAccordingToStock(int quantityRequested, int quantityInStock) {
+        if (quantityRequested < quantityInStock) {
+            return quantityRequested;
+        }
+        return quantityInStock;
+    }
 }
