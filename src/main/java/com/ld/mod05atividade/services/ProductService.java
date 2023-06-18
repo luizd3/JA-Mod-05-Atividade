@@ -39,6 +39,8 @@ public class ProductService {
         return totalOrderPrice;
     }
 
+    // Regra de negócio: Ao tentar dar um desconto maior do que o permitido para o produto,
+    // deve ser considerado o desconto máximo.
     static public double getPriceWithDiscount(Product product, double desconto) {
         if (desconto > product.getDescontoMaximo()) {
             return product.getValor() * (1 - product.getDescontoMaximo());
