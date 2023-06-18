@@ -2,6 +2,7 @@ package com.ld.mod05atividade.adapters.responses;
 
 import com.ld.mod05atividade.adapters.requests.OrderItemRequest;
 import com.ld.mod05atividade.models.Product;
+import com.ld.mod05atividade.services.ProductService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class OrderItemResponse {
 
     public double totalPrice() {
         int orderQuantity = getOrderQuantityAccordingToStock(orderItemRequest.quantidade());
-        double priceWithDiscount = product.getPriceWithDiscount(orderItemRequest.desconto());
+        double priceWithDiscount = ProductService.getPriceWithDiscount(product, orderItemRequest.desconto());
         return orderQuantity * priceWithDiscount;
     }
 

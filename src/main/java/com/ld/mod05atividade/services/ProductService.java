@@ -38,4 +38,11 @@ public class ProductService {
                 .sum();
         return totalOrderPrice;
     }
+
+    static public double getPriceWithDiscount(Product product, double desconto) {
+        if (desconto > product.getDescontoMaximo()) {
+            return product.getValor() * (1 - product.getDescontoMaximo());
+        }
+        return product.getValor() * (1 - desconto);
+    }
 }
