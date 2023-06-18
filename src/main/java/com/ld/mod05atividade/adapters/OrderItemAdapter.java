@@ -14,7 +14,7 @@ public class OrderItemAdapter {
     ProductRepository productRepository;
 
     public OrderItemResponse toOrderItemResponse(OrderItemRequest orderItemRequest) {
-        Product product = productRepository.findAProductGivenItsId(orderItemRequest.getId());
+        Product product = productRepository.findAProductGivenItsId(orderItemRequest.id());
         return new OrderItemResponse(orderItemRequest, product);
     }
 

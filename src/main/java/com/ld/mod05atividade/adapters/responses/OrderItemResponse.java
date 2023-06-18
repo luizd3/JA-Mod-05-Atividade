@@ -18,8 +18,8 @@ public class OrderItemResponse {
     public OrderItemResponse() {}
 
     public double totalPrice() {
-        int orderQuantity = getOrderQuantityAccordingToStock(orderItemRequest.getQuantidade());
-        double priceWithDiscount = product.getPriceWithDiscount(orderItemRequest.getDesconto());
+        int orderQuantity = getOrderQuantityAccordingToStock(orderItemRequest.quantidade());
+        double priceWithDiscount = product.getPriceWithDiscount(orderItemRequest.desconto());
         return orderQuantity * priceWithDiscount;
     }
 
