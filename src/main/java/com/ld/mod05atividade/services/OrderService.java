@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     public double totalPrice(OrderItemResponse orderItemResponse) {
-        int quantityRequested = orderItemResponse.getOrderItemRequest().quantidade();
-        int quantityInStock = orderItemResponse.getProduct().getQuantidade();
-        int orderQuantity = getOrderQuantityAccordingToStock(quantityRequested, quantityInStock);
+        int orderQuantity = getOrderQuantityAccordingToStock(orderItemResponse);
         double priceWithDiscount = ProductService.getPriceWithDiscount(
                 orderItemResponse.getProduct(),
                 orderItemResponse.getOrderItemRequest().desconto()
@@ -19,7 +17,9 @@ public class OrderService {
 
     // Regra de negócio: Ao tentar realizar uma venda de uma quantidade maior do que a disponível em estoque,
     // deve ser vendido apenas a quantidade de produtos disponíveis.
-    public static int getOrderQuantityAccordingToStock(int quantityRequested, int quantityInStock) {
+    public static int getOrderQuantityAccordingToStock(OrderItemResponse orderItemResponse) {
+        int quantityRequested = orderItemResponse.getOrderItemRequest().quantidade();
+        int quantityInStock = orderItemResponse.getProduct().getQuantidade();
         if (quantityRequested < quantityInStock) {
             return quantityRequested;
         }

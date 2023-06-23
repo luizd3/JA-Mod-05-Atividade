@@ -40,9 +40,7 @@ public class ProductService {
         // Remover quantidades de produtos vendidos
         order.getItems().forEach(orderItemResponse -> {
                     UUID id = orderItemResponse.getProduct().getId();
-                    int quantityRequested = orderItemResponse.getOrderItemRequest().quantidade();
-                    int quantityInStock = orderItemResponse.getProduct().getQuantidade();
-                    int orderQuantity = OrderService.getOrderQuantityAccordingToStock(quantityRequested, quantityInStock);
+                    int orderQuantity = OrderService.getOrderQuantityAccordingToStock(orderItemResponse);
                     productRepository.removeProductQuantity(id, orderQuantity);
                 });
 
