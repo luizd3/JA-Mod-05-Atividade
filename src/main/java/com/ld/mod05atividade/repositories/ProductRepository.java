@@ -40,11 +40,12 @@ public class ProductRepository {
     }
 
     public void addProductQuantity(UUID id, Integer quantidade)  {
-        Product productFound = findAll().stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .get();
-
+        Product productFound = findAProductGivenItsId(id);
         productFound.setQuantidade(productFound.getQuantidade() + quantidade);
+    }
+
+    public void removeProductQuantity(UUID id, Integer quantidade) {
+        Product productFound = findAProductGivenItsId(id);
+        productFound.setQuantidade(productFound.getQuantidade() - quantidade);
     }
 }

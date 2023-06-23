@@ -36,6 +36,16 @@ public class ProductService {
         double totalOrderPrice = order.getItems().stream()
                 .mapToDouble(OrderItemResponse::totalPrice)
                 .sum();
+
+        // Remover quantidades de produtos vendidos
+        order.getItems().forEach(orderItemResponse -> {
+                    UUID id = orderItemResponse.getProduct().getId();
+                    int quantityRequested = orderItemResponse.getOrderItemRequest().quantidade();
+                    int quantityInStock = orderItemResponse.getProduct().getQuantidade();
+                    int orderQuantity = OrderService.getOrderQuantityAccordingToStock(quantityRequested, quantityInStock);
+                    productRepository.removeProductQuantity(id, orderQuantity);
+                });
+
         return totalOrderPrice;
     }
 
@@ -46,5 +56,9 @@ public class ProductService {
             return product.getValor() * (1 - product.getDescontoMaximo());
         }
         return product.getValor() * (1 - desconto);
+    }
+
+    private void removeQuantityFromStock(Product product, int quantity) {
+        productRepository.removeProductQuantity(product.getId(), quantity);
     }
 }
