@@ -98,5 +98,15 @@ public class ProductControllerTests {
         String responseBody = result.getResponse().getContentAsString();
 
         assertEquals(expectedResponseBody, responseBody);
+
+        // Teste da remoção da quantidade de produtos vendidos do estoque
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/products")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(5)))
+                .andExpect(jsonPath("$[0].quantidade").value(16))
+                .andExpect(jsonPath("$[1].quantidade").value(8))
+                .andReturn();
     }
 }

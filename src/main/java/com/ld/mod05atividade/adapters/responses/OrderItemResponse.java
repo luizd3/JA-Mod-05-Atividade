@@ -23,11 +23,11 @@ public class OrderItemResponse {
         return orderService.totalPrice(this);
     }
 
-    public OrderItemRequest getOrderRequestItem() {
+    public OrderItemRequest getOrderItemRequest() {
         return orderItemRequest;
     }
 
-    public void setOrderRequestItem(OrderItemRequest orderItemRequest) {
+    public void setOrderItemRequest(OrderItemRequest orderItemRequest) {
         this.orderItemRequest = orderItemRequest;
     }
 
